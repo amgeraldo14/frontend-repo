@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "@/theme";
 import "./globals.css";
 import StoreProvider from "@/store/StoreProvider";
+import { AuthProvider } from "@/lib/AuthProvider";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -28,7 +29,9 @@ export default function RootLayout({
       <body className={`${roboto.variable}  antialiased`}>
         <StoreProvider>
           <ThemeProvider theme={theme}>
-            <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+            <AuthProvider>
+              <AppRouterCacheProvider>{children}</AppRouterCacheProvider>
+            </AuthProvider>
           </ThemeProvider>
         </StoreProvider>
         {/* {children} */}

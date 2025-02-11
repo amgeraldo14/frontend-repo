@@ -1,31 +1,63 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const counterSlice = createSlice({
-  name: "counter",
+const authSlice = createSlice({
+  name: "auth",
   initialState: {
-    value: 0,
+    user: null,
+    loading: false,
+    errorMessage: "",
+    successMessage: "",
+    userData: null,
   },
   reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
+    setUser: (state, action) => {
+      state.user = action.payload;
+      state.loading = false;
+      state.errorMessage = "";
     },
-    decrement: (state) => {
-      state.value -= 1;
+    setUserData: (state, action) => {
+      state.userData = action.payload;
+      state.loading = false;
+      state.errorMessage = "";
     },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    clearUser: (state) => {
+      state.user = null;
+      state.userData = null;
+      state.loading = false;
+      state.errorMessage = "";
+      state.successMessage = "";
+    },
+    setError: (state, action) => {
+      state.errorMessage = action.payload;
+      state.successMessage = "";
+      state.loading = false;
+    },
+    setSuccess: (state, action) => {
+      state.successMessage = action.payload;
+      state.errorMessage = "";
+      state.loading = false;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
+    },
+    clearMessages: (state) => {
+      state.errorMessage = "";
+      state.successMessage = "";
     },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const {
+  setUser,
+  clearUser,
+  setUserData,
+  setError,
+  setSuccess,
+  clearMessages,
+  setLoading,
+} = authSlice.actions;
 
 const rootReducer = {
-  counter: counterSlice.reducer,
+  auth: authSlice.reducer,
 };
 export default rootReducer;
